@@ -1,0 +1,25 @@
+.footer {
+  display: flex;
+  justify-content: space-around;
+}
+
+.copyright {
+  font-size: 1.3rem;
+  text-align: center;
+  color: $color-light-1;
+
+  align-self: center;
+}
+
+.profile-link {
+  &:link,
+  &:visited {
+    color: $color-light-1;
+    transition: all 0.2s;
+  }
+
+  &:hover,
+  &:active {
+    color: $color-light-2;
+  }
+}

@@ -1,0 +1,17 @@
+.memories {
+  overflow: hidden;
+  height: 77vh;
+
+  position: relative;
+}
+
+.memories-container {
+  list-style: none;
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  &::-webkit-scrollbar {
+    width: 0;
+  }
+}

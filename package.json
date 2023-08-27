@@ -1,0 +1,16 @@
+{
+  "name": "mapstr",
+  "version": "1.0.0",
+  "description": "memory map",
+  "default": "index.html",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html --dist-dir ./dist"
+  },
+  "author": "Ikumo Takahashi",
+  "license": "ISC",
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.9.3",
+    "parcel": "^2.9.3"
+  }
+}
