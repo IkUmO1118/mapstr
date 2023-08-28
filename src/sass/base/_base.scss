@@ -39,4 +39,17 @@ body {
   overscroll-behavior-y: none;
 
   display: flex;
+
+  @include respond(small-laptop) {
+    padding: 2.3rem;
+  }
+
+  @include respond(land-tab) {
+    height: 98vh;
+    padding: 2.1rem;
+  }
+
+  @include respond(normal-tab) {
+    padding: 2rem;
+  }
 }
