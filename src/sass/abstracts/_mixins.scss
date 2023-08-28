@@ -1,0 +1,35 @@
+@mixin respond($breakpoint) {
+  @if $breakpoint == port-tab {
+    @media only screen and (max-width: 50em) {
+      @content; // 800px
+    }
+  }
+  @if $breakpoint == port-tab-long {
+    @media only screen and (max-width: 56.25em) {
+      @content; // 900px
+    }
+  }
+  ///////////// Width >= 1000px === Landscape ///////////
+  @if $breakpoint == normal-tab {
+    @media only screen and (max-width: 62.5em) {
+      @content; //width 1000px
+    }
+  }
+  @if $breakpoint == land-tab {
+    @media only screen and (max-width: 75em) {
+      @content; //width: 1200px
+    }
+  }
+  ///////////// Width >= 1200px === Desktop ///////////
+  @if $breakpoint == small-laptop {
+    @media only screen and (max-width: 79.375em) {
+      @content; //width: 1270px
+    }
+  }
+  ///////////// Width <= 1800px === Big Desktop ///////////
+  @if $breakpoint == large-laptop {
+    @media only screen and (min-width: 112.5em) {
+      @content; //width: 1800px
+    }
+  }
+}

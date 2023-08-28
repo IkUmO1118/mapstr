@@ -8,6 +8,22 @@
 
 html {
   font-size: 62.5%;
+
+  @include respond(small-laptop) {
+    font-size: 56.25%; //1rem = 9px...9px / 16px
+  }
+
+  @include respond(land-tab) {
+    font-size: 50%; //1rem = 8px...8px / 16px
+  }
+
+  @include respond(normal-tab) {
+    font-size: 43.75%; //1rem = 7px...7px / 16px
+  }
+
+  @include respond(port-tab-long) {
+    font-size: 37.5%; // 1rem = 6px...6px / 16px
+  }
 }
 
 body {
