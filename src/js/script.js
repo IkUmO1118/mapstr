@@ -588,10 +588,23 @@ class App {
     ////////////////////////////////////////////////////////
     console.log(memory);
     this._renderDetails(memory);
-    this._getReverseGeo(memory);
   }
 
-  _getReverseGeo(memory) {
+  // _getReverseGeo(memory) {
+  //   fetch(
+  //     `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${memory.coords[0]}&longitude=${memory.coords[1]}&localityLanguage=en`
+  //   )
+  //     .then(response => {
+  //       return response.json();
+  //     })
+  //     .then(data => {
+  //       const { city, countryName } = data;
+  //       memory.location = `${countryName} ${city}`;
+  //     });
+  // }
+
+  _renderDetails(memory) {
+    /////////////////
     fetch(
       `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${memory.coords[0]}&longitude=${memory.coords[1]}&localityLanguage=en`
     )
@@ -600,11 +613,10 @@ class App {
       })
       .then(data => {
         const { city, countryName } = data;
-        this.memory.location = `${countryName} ${city}`;
+        memory.location = `${countryName} ${city}`;
       });
-  }
 
-  _renderDetails(memory) {
+    ////////////////
     const detailDate = document.querySelector('.detail__date--txt');
     const detailTitle = document.querySelector('.detail__title--txt');
     const detailLocation = document.querySelector('.detail__location--txt');
