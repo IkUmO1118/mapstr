@@ -608,7 +608,8 @@ class App {
     const detailImg4 = document.getElementById('detailImg-4');
     const detailDialy = document.querySelector('.detail__row--dialy');
 
-    /////////////////
+    /////////////////////////////////
+    // REVERSE GEOLOCATION
     fetch(
       `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${memory.coords[0]}&longitude=${memory.coords[1]}&localityLanguage=en`
     )
@@ -619,7 +620,7 @@ class App {
         const { city, countryName } = data;
         detailLocation.textContent = `${city}: ${countryName}`;
       });
-    ////////////////
+    ///////////////////////////////////
 
     detailDate.textContent = memory.day;
     detailTitle.textContent = memory.title;
