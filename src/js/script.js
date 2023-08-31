@@ -590,21 +590,9 @@ class App {
     this._renderDetails(memory);
   }
 
-  // _getReverseGeo(memory) {
-  //   fetch(
-  //     `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${memory.coords[0]}&longitude=${memory.coords[1]}&localityLanguage=en`
-  //   )
-  //     .then(response => {
-  //       return response.json();
-  //     })
-  //     .then(data => {
-  //       const { city, countryName } = data;
-  //       memory.location = `${countryName} ${city}`;
-  //     });
-  // }
-
   _renderDetails(memory) {
     /////////////////
+
     fetch(
       `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${memory.coords[0]}&longitude=${memory.coords[1]}&localityLanguage=en`
     )
@@ -613,7 +601,6 @@ class App {
       })
       .then(data => {
         const { city, countryName } = data;
-        memory.location = `${countryName} ${city}`;
       });
 
     ////////////////
@@ -639,7 +626,7 @@ class App {
     detailPeople.textContent = memory.people;
     detailSatisfy.textContent = memory.satisfaction;
     detailDialy.textContent = memory.dialy;
-    detailLocation.textContent = memory.location;
+    detailLocation.textContent = `${city}: ${countryName}`;
 
     if (memory.type === 'travel') {
       detailWay.textContent = memory.transportation;
