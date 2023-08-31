@@ -591,19 +591,6 @@ class App {
   }
 
   _renderDetails(memory) {
-    /////////////////
-
-    fetch(
-      `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${memory.coords[0]}&longitude=${memory.coords[1]}&localityLanguage=en`
-    )
-      .then(response => {
-        return response.json();
-      })
-      .then(data => {
-        const { city, countryName } = data;
-      });
-
-    ////////////////
     const detailDate = document.querySelector('.detail__date--txt');
     const detailTitle = document.querySelector('.detail__title--txt');
     const detailLocation = document.querySelector('.detail__location--txt');
@@ -621,12 +608,24 @@ class App {
     const detailImg4 = document.getElementById('detailImg-4');
     const detailDialy = document.querySelector('.detail__row--dialy');
 
+    /////////////////
+    fetch(
+      `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${memory.coords[0]}&longitude=${memory.coords[1]}&localityLanguage=en`
+    )
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {
+        const { city, countryName } = data;
+        detailLocation.textContent = `${city}: ${countryName}`;
+      });
+    ////////////////
+
     detailDate.textContent = memory.day;
     detailTitle.textContent = memory.title;
     detailPeople.textContent = memory.people;
     detailSatisfy.textContent = memory.satisfaction;
     detailDialy.textContent = memory.dialy;
-    detailLocation.textContent = `${city}: ${countryName}`;
 
     if (memory.type === 'travel') {
       detailWay.textContent = memory.transportation;
