@@ -588,6 +588,20 @@ class App {
     ////////////////////////////////////////////////////////
     console.log(memory);
     this._renderDetails(memory);
+    this._getReverseGeo(memory);
+  }
+
+  _getReverseGeo(memory) {
+    fetch(
+      `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${memory.coords[0]}&longitude=${memory.coords[1]}&localityLanguage=en`
+    )
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {
+        const { city, countryName } = data;
+        this.memory.location = `${countryName} ${city}`;
+      });
   }
 
   _renderDetails(memory) {
@@ -613,6 +627,7 @@ class App {
     detailPeople.textContent = memory.people;
     detailSatisfy.textContent = memory.satisfaction;
     detailDialy.textContent = memory.dialy;
+    detailLocation.textContent = memory.location;
 
     if (memory.type === 'travel') {
       detailWay.textContent = memory.transportation;
