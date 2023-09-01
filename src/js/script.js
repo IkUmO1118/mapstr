@@ -239,7 +239,7 @@ class App {
     ///////////////////////////////////////////////////////u
 
     // If you need delete your data, You have to use 'reset()' function
-    // this.reset();
+    this.reset();
   }
 
   _getPosition() {
@@ -476,6 +476,7 @@ class App {
     const { lat, lng } = this.#mapEvent.latlng;
     let memory, city, country;
 
+    // using reverse geolocation, then getting position that you put on the map
     fetch(
       `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}&localityLanguage=en`
     )
@@ -626,7 +627,6 @@ class App {
     const detailDate = document.querySelector('.detail__date--txt');
     const detailTitle = document.querySelector('.detail__title--txt');
     const detailLocation = document.querySelector('.detail__location--txt');
-    const detailType = document.querySelector('.detail__row--type');
     const detailTravel = document.querySelector('.detail__type--travel');
     const detailDaily = document.querySelector('.detail__type--daily');
     const detailPeople = document.querySelector('.detail__value--people');
@@ -639,20 +639,6 @@ class App {
     const detailImg3 = document.getElementById('detailImg-3');
     const detailImg4 = document.getElementById('detailImg-4');
     const detailDialy = document.querySelector('.detail__row--dialy');
-
-    /////////////////////////////////
-    // REVERSE GEOLOCATION
-    // fetch(
-    //   `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${memory.coords[0]}&longitude=${memory.coords[1]}&localityLanguage=en`
-    // )
-    //   .then(response => {
-    //     return response.json();
-    //   })
-    //   .then(data => {
-    //     const { city, countryName } = data;
-    //     detailLocation.textContent = `${city}: ${country}`;
-    //   });
-    ///////////////////////////////////
 
     detailDate.textContent = memory.day;
     detailTitle.textContent = memory.title;
