@@ -239,9 +239,7 @@ class App {
     ///////////////////////////////////////////////////////u
 
     // If you need delete your data, You have to use 'reset()' function
-    setTimeout(() => {
-      this.reset();
-    }, 0);
+    // this.reset();
   }
 
   _getPosition() {
