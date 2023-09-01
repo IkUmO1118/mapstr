@@ -32,6 +32,8 @@ class Memory {
 
   constructor(
     coords,
+    country,
+    city,
     day,
     title,
     people,
@@ -45,6 +47,8 @@ class Memory {
     dialy
   ) {
     this.coords = coords;
+    this.country = country;
+    this.city = city;
     this.day = day;
     this.title = title;
     this.people = people;
@@ -64,6 +68,8 @@ class Daily extends Memory {
 
   constructor(
     coords,
+    country,
+    city,
     day,
     title,
     people,
@@ -79,6 +85,8 @@ class Daily extends Memory {
   ) {
     super(
       coords,
+      country,
+      city,
       day,
       title,
       people,
@@ -99,6 +107,8 @@ class Travel extends Memory {
 
   constructor(
     coords,
+    country,
+    city,
     day,
     title,
     people,
@@ -114,6 +124,8 @@ class Travel extends Memory {
   ) {
     super(
       coords,
+      country,
+      city,
       day,
       title,
       people,
@@ -461,99 +473,119 @@ class App {
 
     e.preventDefault();
 
-    // get data from form
-    const title = inputTitle.value;
-    const day = inputDay.value;
-    const type = inputType.value;
-    const people = +inputPeople.value;
-    const satisfy = +inputSatisfy.value;
-    const text = inputText.value;
     const { lat, lng } = this.#mapEvent.latlng;
-    let memory;
+    let memory, city, country;
 
-    /////////////////////
-    // const video = inputVideo.value;
-    /////////////////////
+    fetch(
+      `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}&localityLanguage=en`
+    )
+      .then(res => {
+        if (!res.ok)
+          throw new Error(`Can't receive memory city and country data`);
+        return res.json();
+      })
+      .then(data => {
+        city = data.city;
+        country = data.countryName;
+      })
+      .catch(err => alert(err.message))
+      .finally(() => {
+        // get data from form
+        const title = inputTitle.value;
+        const day = inputDay.value;
+        const type = inputType.value;
+        const people = +inputPeople.value;
+        const satisfy = +inputSatisfy.value;
+        const text = inputText.value;
 
-    // If memory daily, create daily object
-    if (type === 'daily') {
-      const place = inputPlace.value;
-      // check if data is valid and string
+        /////////////////////
+        // const video = inputVideo.value;
+        /////////////////////
 
-      if (
-        !validInputs(people, satisfy) ||
-        !allPositive(people, satisfy) ||
-        !allString(title, day, place, text)
-      )
-        return alert(
-          'Satisfaction and number of people must be positive numbers. Otherwise, it must be a string.'
-        );
+        // If memory daily, create daily object
+        if (type === 'daily') {
+          const place = inputPlace.value;
+          // check if data is valid and string
 
-      memory = new Daily(
-        [lat, lng],
-        day,
-        title,
-        people,
-        satisfy,
-        thumbnailUrl,
-        imgUrl1,
-        imgUrl2,
-        imgUrl3,
-        imgUrl4,
-        '', // video
-        text,
-        place
-      );
-    }
+          if (
+            !validInputs(people, satisfy) ||
+            !allPositive(people, satisfy) ||
+            !allString(title, day, place, text)
+          )
+            return alert(
+              'Satisfaction and number of people must be positive numbers. Otherwise, it must be a string.'
+            );
 
-    // If memory travel, create travel object
-    if (type === 'travel') {
-      const way = inputTrans.value;
-      // check if data is valid
+          memory = new Daily(
+            [lat, lng],
+            country,
+            city,
+            day,
+            title,
+            people,
+            satisfy,
+            thumbnailUrl,
+            imgUrl1,
+            imgUrl2,
+            imgUrl3,
+            imgUrl4,
+            '', // video
+            text,
+            place
+          );
+        }
 
-      if (
-        !validInputs(people, satisfy) ||
-        !allPositive(people, satisfy) ||
-        !allString(title, day, way, text)
-      )
-        return alert(
-          'Satisfaction and number of people must be positive numbers. Otherwise, it must be a string.'
-        );
+        // If memory travel, create travel object
+        if (type === 'travel') {
+          const way = inputTrans.value;
+          // check if data is valid
 
-      memory = new Travel(
-        [lat, lng],
-        day,
-        title,
-        people,
-        satisfy,
-        thumbnailUrl,
-        imgUrl1,
-        imgUrl2,
-        imgUrl3,
-        imgUrl4,
-        '', // video
-        text,
-        way
-      );
-    }
+          if (
+            !validInputs(people, satisfy) ||
+            !allPositive(people, satisfy) ||
+            !allString(title, day, way, text)
+          )
+            return alert(
+              'Satisfaction and number of people must be positive numbers. Otherwise, it must be a string.'
+            );
 
-    // Add new object to memories array
-    this.#memories.push(memory);
-    console.log(memory);
+          memory = new Travel(
+            [lat, lng],
+            country,
+            city,
+            day,
+            title,
+            people,
+            satisfy,
+            thumbnailUrl,
+            imgUrl1,
+            imgUrl2,
+            imgUrl3,
+            imgUrl4,
+            '', // video
+            text,
+            way
+          );
+        }
 
-    // Render memory on map as marker
-    this._renderMemoryMarker(memory);
+        // Add new object to memories array
+        this.#memories.push(memory);
+        console.log(memory);
 
-    // Render memory on list
-    this._renderMemory(memory);
+        // Render memory on map as marker
+        this._renderMemoryMarker(memory);
 
-    // Hide form + clear input fields
-    this._hideForm();
+        // Render memory on list
+        this._renderMemory(memory);
 
-    // Set local storage to all memories
-    this._setLocalStorage();
+        // Hide form + clear input fields
+        this._hideForm();
 
-    //////////////////////
+        // Set local storage to all memories
+        this._setLocalStorage();
+
+        //////////////////////
+      });
   }
 
   _renderMemoryMarker(memory) {
@@ -610,16 +642,16 @@ class App {
 
     /////////////////////////////////
     // REVERSE GEOLOCATION
-    fetch(
-      `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${memory.coords[0]}&longitude=${memory.coords[1]}&localityLanguage=en`
-    )
-      .then(response => {
-        return response.json();
-      })
-      .then(data => {
-        const { city, countryName } = data;
-        detailLocation.textContent = `${city}: ${countryName}`;
-      });
+    // fetch(
+    //   `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${memory.coords[0]}&longitude=${memory.coords[1]}&localityLanguage=en`
+    // )
+    //   .then(response => {
+    //     return response.json();
+    //   })
+    //   .then(data => {
+    //     const { city, countryName } = data;
+    //     detailLocation.textContent = `${city}: ${country}`;
+    //   });
     ///////////////////////////////////
 
     detailDate.textContent = memory.day;
@@ -627,6 +659,7 @@ class App {
     detailPeople.textContent = memory.people;
     detailSatisfy.textContent = memory.satisfaction;
     detailDialy.textContent = memory.dialy;
+    detailLocation.textContent = `${memory.city}: ${memory.country}`;
 
     if (memory.type === 'travel') {
       detailWay.textContent = memory.transportation;
