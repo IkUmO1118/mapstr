@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" type="image/png" href="/icon.323200e9.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/index.f7626f62.css">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+    <script defer="" src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
+
+    <script src="/index.e82f28a0.js" defer=""></script>
+
+    <title>Mapstr // Memory on map</title>
+  </head>
+
+  <body>
+    <div class="container">
+      <!-- SIDEBAR -->
+      <div class="sidebar">
+        <!-- INFOMATION -->
+        <div class="info hidden">
+          <h2 class="info__header">what's this?</h2>
+          <p class="info__description">
+            This is an app that allows you to record your daily life and travel
+            memories and view them on a map.
+          </p>
+          <h2 class="info__header">how does it work?</h2>
+          <ul class="info__list">
+            <li class="info__list--item">
+              First, click on the map(where you want to save the memory).
+            </li>
+            <li class="info__list--item">
+              Then the form will appear, select the type of memory you want to
+              save(daily of travel) and fill ti out.
+            </li>
+            <li class="info__list--item">
+              (You may upload up to 30 seconds of short video and 5 photos in
+              one submission.)
+            </li>
+            <li class="info__list--item">
+              Once you have written your information and uploaded your photos
+              and videos,press enter to display your memory in the list.
+            </li>
+            <li class="info__list--item">
+              Once you have entered the memory, a menu will appear.
+            </li>
+            <li class="info__list--item">
+              Once you tap on a thumbnail photo, you will see detailed
+              information about the photo, video, and diary or memo you
+              uploaded.
+            </li>
+            <li class="info__list--item">
+              You can change the photo, dialy, etc.from the page with detailed
+              information
+            </li>
+          </ul>
+        </div>
+        <!-- OVERLAY -->
+        <div class="overlay hidden"></div>
+
+        <!-- HEADER -->
+        <header class="header">
+          <img src="/icon.323200e9.png" alt="Logo" class="header__logo">
+          <p class="header header__txt">mapstr</p>
+        </header>
+
+        <div class="memories">
+          <!-- DESCRIPTION OF INFORMATION -->
+          <div class="detail hidden" id="detail">
+            <div class="detail__row detail__row--date">
+              <ion-icon class="detail__date--icon" name="calendar"></ion-icon>
+              <span class="detail__date--txt">2023-03-20</span>
+            </div>
+            <div class="detail__row detail__row--btn">
+              <ion-icon class="detail__btn--icon" name="close"></ion-icon>
+            </div>
+            <div class="detail__row detail__row--title">
+              <p class="detail__title--txt">彼女と旅行</p>
+            </div>
+            <div class="detail__row detail__row--location">
+              <ion-icon name="pin"></ion-icon>
+              <span class="detail__location--txt">神奈川県&nbsp;横浜市&nbsp;IKUMO</span>
+            </div>
+            <div class="detail__row detail__row--type">
+              <p class="detail__type--travel">Travel</p>
+              <p class="detail__type--daily">Daily</p>
+            </div>
+            <div class="detail__row detail__row--people">
+              <span class="detail__icon">👪</span>
+              <span class="detail__value detail__value--people">2</span>
+              <span class="detail__unit">人</span>
+            </div>
+            <div class="detail__row detail__row--way">
+              <span class="detail__icon">🚶</span>
+              <span class="detail__value detail__value--way">飛行機</span>
+            </div>
+            <div class="detail__row detail__row--place hidden">
+              <span class="detail__icon">🗺️</span>
+              <span class="detail__value detail__value--place">溝の口</span>
+            </div>
+            <div class="detail__row detail__row--satisfy">
+              <span class="detail__icon">⭐</span>
+              <span class="detail__value detail__value--satisfy">4</span>
+              <span class="detail__unit">つ</span>
+            </div>
+            <div class="detail__row detail__row--photo">
+              <div class="detail__photo--container">
+                <div class="detail__photo">
+                  <ion-icon class="detail__photo--icon" name="qr-scanner"></ion-icon>
+                  <img src="#" alt="Detail photo" class="detail__img detail__img-0" id="detailImg-0">
+                </div>
+                <div class="detail__photo">
+                  <ion-icon class="detail__photo--icon" name="qr-scanner"></ion-icon>
+                  <img src="#" alt="Detail photo" class="detail__img detail__img-1" id="detailImg-1">
+                </div>
+                <div class="detail__photo">
+                  <ion-icon class="detail__photo--icon" name="qr-scanner"></ion-icon>
+                  <img src="#" alt="Detail photo" class="detail__img detail__img-2" id="detailImg-2">
+                </div>
+                <div class="detail__photo">
+                  <ion-icon class="detail__photo--icon" name="qr-scanner"></ion-icon>
+                  <img src="#" alt="Detail photo" class="detail__img detail__img-3" id="detailImg-3">
+                </div>
+                <div class="detail__photo">
+                  <ion-icon class="detail__photo--icon" name="qr-scanner"></ion-icon>
+                  <img src="#" alt="Detail photo" class="detail__img detail__img-4" id="detailImg-4">
+                </div>
+              </div>
+            </div>
+            <div class="detail__row detail__row--video">video</div>
+            <div class="detail__row detail__row--dialy" id="detailDialy-txt">
+              初めての遠出旅行をした。楽しかった。
+            </div>
+          </div>
+          <!-- / DESCRIPTION OF INFORMATION -->
+
+          <form class="form hidden">
+            <div class="form__row form__row--title">
+              <label class="form__label form__label--title">Title</label>
+              <input type="text" placeholder="タイトル" class="form__input form__input--title">
+            </div>
+
+            <div class="form__row form__row--day">
+              <label class="form__label form__label--day">Day</label>
+              <input class="form__input form__input--day" type="date">
+            </div>
+
+            <div class="form__row">
+              <label class="form__label">Type</label>
+              <select class="form__input form__input--type">
+                <option value="daily">Daily</option>
+                <option value="travel">Travel</option>
+              </select>
+            </div>
+
+            <div class="form__row">
+              <label class="form__label">Peopel</label>
+              <input class="form__input form__input--people" placeholder="人">
+            </div>
+
+            <div class="form__row form__row--hidden">
+              <label class="form__label">Way</label>
+              <input class="form__input form__input--transportation" placeholder="手段">
+            </div>
+
+            <div class="form__row">
+              <label class="form__label">Place</label>
+              <input class="form__input form__input--place" placeholder="場所">
+            </div>
+
+            <div class="form__row">
+              <label class="form__label">Satisfy</label>
+              <input class="form__input form__input--satisfaction" placeholder="満足度">
+            </div>
+
+            <label class="form__label">Photo</label>
+            <div class="form__row form__row--photo">
+              <div class="form__photo--container">
+                <label class="form__photo">
+                  <ion-icon class="form__photo--icon" name="add"></ion-icon>
+                  <input class="form__photo--btn" type="file" id="input0">
+                  <img class="form__img form__img-0" id="memory-img-0" src="#" alt="form photo image">
+                </label>
+                <label class="form__photo">
+                  <ion-icon class="form__photo--icon" name="add"></ion-icon>
+                  <input class="form__photo--btn" type="file" id="input1">
+                  <img class="form__img form__img-1" id="memory-img-1" src="#" alt="form photo image">
+                </label>
+                <label class="form__photo">
+                  <ion-icon class="form__photo--icon" name="add"></ion-icon>
+                  <input class="form__photo--btn" type="file" id="input2">
+                  <img class="form__img form__img-2" id="memory-img-2" src="#" alt="form photo image">
+                </label>
+                <label class="form__photo">
+                  <ion-icon class="form__photo--icon" name="add"></ion-icon>
+                  <input class="form__photo--btn" type="file" id="input3">
+                  <img class="form__img form__img-3" id="memory-img-3" src="#" alt="form photo image">
+                </label>
+                <label class="form__photo">
+                  <ion-icon class="form__photo--icon" name="add"></ion-icon>
+                  <input class="form__photo--btn" type="file" id="input4">
+                  <img class="form__img form__img-4" id="memory-img-4" src="#" alt="form photo image">
+                </label>
+              </div>
+            </div>
+
+            <div class="form__row form__row--video">
+              <label class="form__label form__label--video">Video</label>
+              <div class="form__video">
+                <label for="filename">
+                  <span class="form__video--btn">Browse</span><input type="file" id="filename">
+                </label>
+                <input class="form__input form__input--video" id="dummy_file" type="text">
+              </div>
+            </div>
+
+            <label class="form__label">Dialy</label>
+            <div class="form__row form__row--dialy">
+              <textarea class="form__input form__input--dialy" id="form-dialy" placeholder="日記"></textarea>
+            </div>
+
+            <button class="form__btn"></button>
+          </form>
+
+          <ul class="memories-container">
+            <!-- <li class="memory memory--daily" data-id="1234567890">
+            <div class="memory__date">
+              <ion-icon class="memory__date--icon" name="calendar"></ion-icon>
+              <span>2023-03-20</span>
+            </div>
+            <h2 class="memory__title">
+              Daily&nbsp;&nbsp;&nbsp;地元友達とカラオケ
+            </h2>
+            <div class="memory__details">
+              <span class="memory__icon">👪</span>
+              <span class="memory__value">3</span>
+              <span class="memory__unit">人</span>
+            </div>
+            <div class="memory__details">
+              <span class="memory__icon">🗺️</span>
+              <span class="memory__value">溝の口</span>
+            </div>
+            <div class="memory__details">
+              <span class="memory__icon">⭐</span>
+              <span class="memory__value">4</span>
+              <span class="memory__unit">つ</span>
+            </div>
+            <div class="memory__thumbnail">
+              <img
+                src="#"
+                alt="memory image"
+                class="memory__thumbnail--img"
+                id="memory-thumbnail"
+              />
+            </div>
+          </li> -->
+
+            <!-- <li class="memory memory--travel" data-id="1234567891">
+            <div class="memory__data">
+              <ion-icon class="mamory__data-icon" name="calendar"></ion-icon>
+              <span>2023-12-25</span>
+            </div>
+            <h2 class="memory__title">Travel&nbsp;&nbsp;&nbsp;友達と旅行</h2>
+            <div class="memory__details">
+              <span class="memory__icon">👪</span>
+              <span class="memory__value">2</span>
+              <span class="memory__unit">人</span>
+            </div>
+            <div class="memory__details">
+              <span class="memory__icon">🚶</span>
+              <span class="memory__value">飛行機</span>
+            </div>
+            <div class="memory__details">
+              <span class="memory__icon">⭐</span>
+              <span class="memory__value">5</span>
+              <span class="memory__unit">つ</span>
+            </div>
+            <div class="memory__thumbnail">
+              <img
+                src="#"
+                alt="momory image"
+                class="memory__thumbnail--img"
+                id="memory-img-2"
+              />
+            </div>
+          </li> -->
+          </ul>
+        </div>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+          <p class="copyright">
+            &copy; copyright by
+            <a href="https://github.com/IkUmO1118" target="_blank" class="profile-link">Ikumo Takahashi</a>
+          </p>
+          <button class="infomation-btn">
+            <ion-icon class="infomation-icon" name="information-circle-outline"></ion-icon>
+          </button>
+        </footer>
+      </div>
+
+      <!-- MAP -->
+      <div id="map"></div>
+    </div>
+  </body>
+</html>
