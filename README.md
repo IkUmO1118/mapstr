@@ -2,7 +2,7 @@
 
 This is an app that allows you to record your daily life and travel memories and view them on a map.
 
-## https://mapstr-ikumo.netlify.app/
+### https://mapstr-ikumo.netlify.app/
 
 # Home Page
 ![Home page image](https://github.com/IkUmO1118/mapstr/assets/132073192/c581b9c7-a8f6-46d6-8886-1eb33dc118de)
